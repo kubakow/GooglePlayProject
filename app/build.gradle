@@ -1,0 +1,57 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.example.rent.googleplayprojectapp"
+        minSdkVersion 19
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs{
+        signConf{
+            def Properties localProps = new Properties()
+            localProps.load(new FileInputStream(file('..\\local.properties')))
+            storeFile file(localProps["storeFile"])
+            keyAlias localProps["keyAlias"]
+            storePassword localProps["storePassword"]
+            keyPassword localProps["keyPassword"]
+        }
+    }
+
+    buildTypes {
+        debug{
+            applicationIdSuffix ".debug.second"
+            buildConfigField "String", "MY_FIELD", '"I_AM_DEBUG"'
+        }
+
+        release {
+            signingConfig signingConfigs.signConf
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors{
+
+        left{
+            applicationIdSuffix ".left"
+        }
+        right{
+            applicationIdSuffix ".right"
+        }
+    }
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.0'
+    testCompile 'junit:junit:4.12'
+}

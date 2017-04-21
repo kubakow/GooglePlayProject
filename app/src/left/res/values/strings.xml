@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="flavor_string">Left</string>
+    <color name="background_color">#cd12E0</color>
+</resources>
